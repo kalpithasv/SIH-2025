@@ -3,19 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card'
 import { AlertsPanel } from '../components/dashboard/AlertsPanel';
 import { Heatmap } from '../components/dashboard/Heatmap';
 import { mockTourists, mockAlerts, mockSafetyZones } from '../data/mockData';
-import { Alert } from '../types';
-import { Shield, AlertTriangle, MapPin, Clock, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Shield, AlertTriangle, Clock, CheckCircle, ArrowLeft } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 
 export const PoliceDepartmentPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleAlertSelect = (alert: Alert) => {
-    console.log('Selected alert:', alert);
-    // Navigate to alert details page
-    navigate(`/alert/${alert.id}`);
-  };
 
   const policeStats = {
     totalAlerts: mockAlerts.length,
@@ -110,7 +104,7 @@ export const PoliceDepartmentPage: React.FC = () => {
       {/* Alerts Panel */}
       <AlertsPanel
         alerts={mockAlerts}
-        onAlertSelect={handleAlertSelect}
+        onAlertSelect={() => {}}
       />
 
       {/* Heatmap for Police View */}

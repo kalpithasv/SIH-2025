@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { Alert } from '../../types';
-import { formatDate, getSeverityColor } from '../../utils';
+import { formatDate } from '../../utils';
 import { AlertTriangle, MapPin, Clock, User, CheckCircle, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ interface AlertsPanelProps {
   onAlertSelect: (alert: Alert) => void;
 }
 
-export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onAlertSelect }) => {
+export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts }) => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState<'all' | 'active' | 'investigating' | 'resolved'>('all');
   const [severityFilter, setSeverityFilter] = useState<'all' | 'low' | 'medium' | 'high' | 'critical'>('all');

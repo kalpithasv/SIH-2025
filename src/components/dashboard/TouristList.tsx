@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Badge } from '../ui/Badge';
-import { Button } from '../ui/Button';
 import { Tourist } from '../../types';
-import { formatDate, getStatusColor, getTimeAgo } from '../../utils';
-import { MapPin, Phone, Mail, Eye, EyeOff, AlertTriangle } from 'lucide-react';
+import { formatDate, getTimeAgo } from '../../utils';
+import { MapPin, Phone, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface TouristListProps {
@@ -12,7 +11,7 @@ interface TouristListProps {
   onTouristSelect: (tourist: Tourist) => void;
 }
 
-export const TouristList: React.FC<TouristListProps> = ({ tourists, onTouristSelect }) => {
+export const TouristList: React.FC<TouristListProps> = ({ tourists }) => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState<'all' | 'safe' | 'warning' | 'danger' | 'missing'>('all');
   const [sortBy, setSortBy] = useState<'name' | 'safetyScore' | 'lastSeen'>('safetyScore');

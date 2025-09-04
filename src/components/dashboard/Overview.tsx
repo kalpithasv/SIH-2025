@@ -3,9 +3,6 @@ import {
   Users, 
   AlertTriangle, 
   Shield, 
-  TrendingUp,
-  MapPin,
-  Clock,
   CheckCircle,
   XCircle
 } from 'lucide-react';

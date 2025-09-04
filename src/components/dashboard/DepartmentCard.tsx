@@ -18,8 +18,7 @@ interface DepartmentCardProps {
 
 export const DepartmentCard: React.FC<DepartmentCardProps> = ({
   department,
-  stats,
-  onViewDetails
+  stats
 }) => {
   const navigate = useNavigate();
   const isTourism = department === 'tourism';

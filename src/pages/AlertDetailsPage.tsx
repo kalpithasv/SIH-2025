@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
-import { Alert } from '../types';
 import { mockAlerts } from '../data/mockData';
 import { 
   ArrowLeft, 
@@ -12,12 +11,11 @@ import {
   AlertTriangle,
   Phone,
   Mail,
-  Shield,
   CheckCircle,
   XCircle
 } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { formatDate, getSeverityColor } from '../utils';
+import { formatDate } from '../utils';
 
 export const AlertDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

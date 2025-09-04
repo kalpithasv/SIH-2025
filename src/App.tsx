@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
@@ -11,8 +11,7 @@ import { TouristList } from './components/dashboard/TouristList';
 import { AlertsPanel } from './components/dashboard/AlertsPanel';
 import { Heatmap } from './components/dashboard/Heatmap';
 import { SafetyScoreChart } from './components/dashboard/SafetyScoreChart';
-import { mockTourists, mockDashboardStats, mockAlerts, mockSafetyZones } from './data/mockData';
-import { Tourist, Alert } from './types';
+import { mockTourists, mockAlerts, mockSafetyZones } from './data/mockData';
 
 function App() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -25,14 +24,14 @@ function App() {
         return (
           <TouristList
             tourists={mockTourists}
-            onTouristSelect={(tourist) => window.location.href = `/tourist/${tourist.id}`}
+            onTouristSelect={() => {}}
           />
         );
       case 'alerts':
         return (
           <AlertsPanel
             alerts={mockAlerts}
-            onAlertSelect={(alert) => window.location.href = `/alert/${alert.id}`}
+            onAlertSelect={() => {}}
           />
         );
       case 'heatmap':

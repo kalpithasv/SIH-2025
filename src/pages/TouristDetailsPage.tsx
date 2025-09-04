@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
-import { Tourist } from '../types';
 import { mockTourists } from '../data/mockData';
 import { 
   ArrowLeft, 
@@ -163,7 +162,7 @@ export const TouristDetailsPage: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {tourist.travelHistory.map((location, index) => (
+                {tourist.travelHistory.map((location) => (
                   <div key={location.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <MapPin className="h-4 w-4 text-gray-500" />

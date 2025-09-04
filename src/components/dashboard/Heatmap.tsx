@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { MapContainer, TileLayer, CircleMarker, Popup, Polygon } from 'react-leaflet';
 import { Tourist, SafetyZone } from '../../types';
@@ -20,8 +20,8 @@ interface HeatmapProps {
 }
 
 export const Heatmap: React.FC<HeatmapProps> = ({ tourists, safetyZones }) => {
-  const [mapCenter, setMapCenter] = useState<[number, number]>([20.5937, 78.9629]); // India center
-  const [mapZoom, setMapZoom] = useState(5);
+  const mapCenter: [number, number] = [20.5937, 78.9629]; // India center
+  const mapZoom = 5;
 
   // Calculate tourist density by location
   const locationDensity = tourists.reduce((acc, tourist) => {

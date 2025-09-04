@@ -1,22 +1,16 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
+import { Card, CardContent } from '../components/ui/Card';
 import { TouristList } from '../components/dashboard/TouristList';
 import { SafetyScoreChart } from '../components/dashboard/SafetyScoreChart';
 import { Heatmap } from '../components/dashboard/Heatmap';
 import { mockTourists, mockSafetyZones } from '../data/mockData';
-import { Tourist } from '../types';
-import { Users, MapPin, BarChart3, Globe, ArrowLeft } from 'lucide-react';
+import { Users, BarChart3, Globe, ArrowLeft } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 
 export const TourismDepartmentPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleTouristSelect = (tourist: Tourist) => {
-    console.log('Selected tourist:', tourist);
-    // Navigate to tourist details page
-    navigate(`/tourist/${tourist.id}`);
-  };
 
   const tourismStats = {
     totalTourists: mockTourists.length,
@@ -112,7 +106,7 @@ export const TourismDepartmentPage: React.FC = () => {
       {/* Tourist List */}
       <TouristList
         tourists={mockTourists}
-        onTouristSelect={handleTouristSelect}
+        onTouristSelect={() => {}}
       />
 
       {/* Charts and Analytics */}
