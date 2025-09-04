@@ -13,7 +13,7 @@ interface DepartmentCardProps {
     resolvedCases: number;
     averageResponseTime: string;
   };
-  onViewDetails: () => void;
+  onViewDetails?: () => void;
 }
 
 export const DepartmentCard: React.FC<DepartmentCardProps> = ({
@@ -24,7 +24,7 @@ export const DepartmentCard: React.FC<DepartmentCardProps> = ({
   const isTourism = department === 'tourism';
 
   const handleViewDetails = () => {
-    navigate(`/department/${department}`);
+    navigate(`/dashboard/department/${department}`);
   };
   
   const departmentInfo = {
