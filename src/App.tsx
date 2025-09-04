@@ -24,34 +24,34 @@ function App() {
         <Header activeAlerts={mockAlerts.filter(alert => alert.status === 'active').length} />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/tourists" element={
+            <Route index element={<HomePage />} />
+            <Route path="tourists" element={
               <TouristList
                 tourists={mockTourists}
                 onTouristSelect={() => {}}
               />
             } />
-            <Route path="/alerts" element={
+            <Route path="alerts" element={
               <AlertsPanel
                 alerts={mockAlerts}
                 onAlertSelect={() => {}}
               />
             } />
-            <Route path="/heatmap" element={
+            <Route path="heatmap" element={
               <Heatmap
                 tourists={mockTourists}
                 safetyZones={mockSafetyZones}
               />
             } />
-            <Route path="/analytics" element={
+            <Route path="analytics" element={
               <SafetyScoreChart
                 tourists={mockTourists}
               />
             } />
-            <Route path="/department/tourism" element={<TourismDepartmentPage />} />
-            <Route path="/department/police" element={<PoliceDepartmentPage />} />
-            <Route path="/tourist/:id" element={<TouristDetailsPage />} />
-            <Route path="/alert/:id" element={<AlertDetailsPage />} />
+            <Route path="department/tourism" element={<TourismDepartmentPage />} />
+            <Route path="department/police" element={<PoliceDepartmentPage />} />
+            <Route path="tourist/:id" element={<TouristDetailsPage />} />
+            <Route path="alert/:id" element={<AlertDetailsPage />} />
           </Routes>
         </main>
       </div>

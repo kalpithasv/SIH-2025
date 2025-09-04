@@ -37,18 +37,28 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
     // Navigate to specific routes for certain items
     switch (itemId) {
       case 'overview':
-        navigate('/');
+        navigate('/dashboard');
         break;
       case 'tourists':
+        navigate('/dashboard/tourists');
+        break;
       case 'alerts':
+        navigate('/dashboard/alerts');
+        break;
       case 'heatmap':
+        navigate('/dashboard/heatmap');
+        break;
       case 'analytics':
+        navigate('/dashboard/analytics');
+        break;
       case 'reports':
+        navigate('/dashboard/reports');
+        break;
       case 'settings':
-        // These will be handled by the main content area
+        navigate('/dashboard/settings');
         break;
       default:
-        navigate('/');
+        navigate('/dashboard');
     }
   };
 
@@ -64,9 +74,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id || 
-              (item.id === 'overview' && location.pathname === '/') ||
-              (item.id === 'tourists' && location.pathname.startsWith('/tourist/')) ||
-              (item.id === 'alerts' && location.pathname.startsWith('/alert/'));
+              (item.id === 'overview' && location.pathname === '/dashboard') ||
+              (item.id === item.id && location.pathname === `/dashboard/${item.id}`) ||
+              (item.id === 'tourists' && location.pathname.startsWith('/dashboard/tourist/')) ||
+              (item.id === 'alerts' && location.pathname.startsWith('/dashboard/alert/'));
             
             return (
               <button
