@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Bell, User, Settings } from 'lucide-react';
+import { Bell, User, Settings } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 
 interface HeaderProps {
@@ -12,8 +12,12 @@ export const Header: React.FC<HeaderProps> = ({ activeAlerts }) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <MapPin className="h-8 w-8 text-primary-600" />
-            <h1 className="text-2xl font-bold text-gray-900">Tourist Safety Dashboard</h1>
+            <div className="h-8 w-8 text-primary-600">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900">SafeTrails</h1>
           </div>
         </div>
         

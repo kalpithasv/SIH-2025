@@ -1,4 +1,4 @@
-# Tourist Safety Dashboard
+# SafeTrails
 
 A comprehensive web-based dashboard for managing tourist safety and security, designed for the Ministry of Tourism and Police Department.
 
