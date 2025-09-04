@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Users, 
   AlertTriangle, 
-  Shield, 
+  MapPin, 
   CheckCircle,
   XCircle
 } from 'lucide-react';
@@ -55,7 +55,7 @@ export const Overview: React.FC<OverviewProps> = ({ stats, onDepartmentSelect })
           value={`${stats.averageSafetyScore}%`}
           change="+5% improvement"
           changeType="positive"
-          icon={Shield}
+          icon={MapPin}
           color="green"
         />
         <StatsCard

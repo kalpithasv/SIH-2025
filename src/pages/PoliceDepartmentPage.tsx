@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card'
 import { AlertsPanel } from '../components/dashboard/AlertsPanel';
 import { Heatmap } from '../components/dashboard/Heatmap';
 import { mockTourists, mockAlerts, mockSafetyZones } from '../data/mockData';
-import { Shield, AlertTriangle, Clock, CheckCircle, ArrowLeft } from 'lucide-react';
+import { AlertTriangle, Clock, CheckCircle, ArrowLeft } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 
@@ -38,7 +38,7 @@ export const PoliceDepartmentPage: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <Shield className="h-8 w-8 text-danger-600" />
+          <AlertTriangle className="h-8 w-8 text-danger-600" />
         </div>
       </div>
 

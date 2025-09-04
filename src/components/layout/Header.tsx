@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Bell, User, Settings } from 'lucide-react';
+import { MapPin, Bell, User, Settings } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 
 interface HeaderProps {
@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = ({ activeAlerts }) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <Shield className="h-8 w-8 text-primary-600" />
+            <MapPin className="h-8 w-8 text-primary-600" />
             <h1 className="text-2xl font-bold text-gray-900">Tourist Safety Dashboard</h1>
           </div>
         </div>

@@ -6,7 +6,7 @@ import {
   AlertTriangle, 
   BarChart3, 
   Settings,
-  Shield,
+  Compass,
   FileText
 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -56,8 +56,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
     <aside className="w-64 bg-gray-50 border-r border-gray-200 h-full">
       <div className="p-6">
         <div className="flex items-center space-x-2 mb-8">
-          <Shield className="h-6 w-6 text-primary-600" />
-          <span className="text-lg font-semibold text-gray-900">Safety System</span>
+          <Compass className="h-6 w-6 text-primary-600" />
+          <span className="text-lg font-semibold text-gray-900">Tourist Safety</span>
         </div>
         
         <nav className="space-y-2">

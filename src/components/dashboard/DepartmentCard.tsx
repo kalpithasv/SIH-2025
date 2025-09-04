@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
-import { Shield, Users, AlertTriangle, MapPin } from 'lucide-react';
+import { Globe, Users, AlertTriangle, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface DepartmentCardProps {
@@ -30,13 +30,13 @@ export const DepartmentCard: React.FC<DepartmentCardProps> = ({
   const departmentInfo = {
     tourism: {
       title: 'Ministry of Tourism',
-      icon: Users,
+      icon: Globe,
       color: 'text-primary-600 bg-primary-100',
       description: 'Tourist Management & Safety'
     },
     police: {
       title: 'Police Department',
-      icon: Shield,
+      icon: AlertTriangle,
       color: 'text-danger-600 bg-danger-100',
       description: 'Law Enforcement & Emergency Response'
     }
@@ -92,7 +92,7 @@ export const DepartmentCard: React.FC<DepartmentCardProps> = ({
           
           <div className="text-center">
             <div className="flex items-center justify-center space-x-2 mb-1">
-              <Shield className="h-4 w-4 text-gray-500" />
+              <MapPin className="h-4 w-4 text-gray-500" />
               <span className="text-sm text-gray-600">Avg Response</span>
             </div>
             <p className="text-2xl font-bold text-gray-900">{stats.averageResponseTime}</p>
