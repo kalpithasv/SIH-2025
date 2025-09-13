@@ -26,18 +26,64 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const checkAuth = async () => {
       console.log('🔍 AuthContext: Checking initial auth state...');
       const token = localStorage.getItem('authToken');
+      const storedUser = localStorage.getItem('authUser');
       console.log('🔑 AuthContext: Token found in localStorage:', !!token);
+      console.log('👤 AuthContext: User found in localStorage:', !!storedUser);
       
-      if (token) {
+      if (token && storedUser) {
         try {
-          console.log('👤 AuthContext: Fetching user profile...');
+          // First try to restore from localStorage
+          const user = JSON.parse(storedUser);
+          console.log('📦 AuthContext: Restoring user from localStorage:', user);
+          apiService.setToken(token);
+          setUser(user);
+          
+          // Optional: Validate token with server in background
+          // If this fails, we'll catch it but won't clear the user immediately
+          try {
+            console.log('🔄 AuthContext: Validating token with server...');
+            // Add timeout to prevent hanging
+            const timeoutPromise = new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('Token validation timeout')), 10000)
+            );
+            
+            const response = await Promise.race([
+              apiService.getProfile(),
+              timeoutPromise
+            ]) as { user: User };
+            
+            console.log('✅ AuthContext: Token validation successful:', response.user);
+            // Update user data if server returns updated info
+            setUser(response.user);
+            // Update localStorage with fresh user data
+            localStorage.setItem('authUser', JSON.stringify(response.user));
+          } catch (validationError) {
+            console.warn('⚠️ AuthContext: Token validation failed, but keeping user logged in:', validationError);
+            // We keep the user logged in even if validation fails
+            // This prevents constant logouts due to server issues
+          }
+        } catch (error) {
+          console.error('❌ AuthContext: Failed to restore user from localStorage:', error);
+          console.log('🧽 AuthContext: Clearing invalid data from localStorage');
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('authUser');
+          apiService.clearToken();
+        }
+      } else if (token) {
+        // We have token but no stored user, try to fetch profile
+        try {
+          console.log('👤 AuthContext: Fetching user profile with existing token...');
+          apiService.setToken(token);
           const response = await apiService.getProfile();
           console.log('✅ AuthContext: Profile fetched successfully:', response.user);
           setUser(response.user);
+          // Store user data in localStorage for next time
+          localStorage.setItem('authUser', JSON.stringify(response.user));
         } catch (error) {
           console.error('❌ AuthContext: Auth check failed:', error);
           console.log('🧽 AuthContext: Clearing invalid token from localStorage');
           localStorage.removeItem('authToken');
+          localStorage.removeItem('authUser');
           apiService.clearToken();
         }
       } else {
@@ -69,11 +115,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     console.log('🔐 AdminLogin: Setting user in context:', user);
     apiService.setToken(token);
     setUser(user);
+    // Store user data in localStorage for persistence
+    localStorage.setItem('authUser', JSON.stringify(user));
+    console.log('📦 AdminLogin: User data stored in localStorage');
   };
 
   const logout = () => {
     apiService.clearToken();
     setUser(null);
+    // Clear user data from localStorage
+    localStorage.removeItem('authUser');
+    console.log('🧽 Logout: Cleared user data from localStorage');
   };
 
   const updateUser = async (userData: Partial<User>) => {
