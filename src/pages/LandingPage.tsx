@@ -18,12 +18,20 @@ export const LandingPage: React.FC = () => {
               </div>
               <span className="text-xl font-bold text-gray-900">SafeTrails</span>
             </div>
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="px-6 py-2 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors"
-            >
-              Launch Dashboard
-            </button>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => navigate('/login')}
+                className="px-6 py-2 text-primary-600 border border-primary-600 rounded-full hover:bg-primary-50 transition-colors"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => navigate('/dashboard')}
+                className="px-6 py-2 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors"
+              >
+                Launch Dashboard
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -40,12 +48,20 @@ export const LandingPage: React.FC = () => {
             <h1 className="text-5xl font-bold text-gray-900 mb-6">SafeTrails</h1>
             <p className="text-xl text-gray-600 mb-8">Travel Smart, Stay Safe</p>
             <p className="text-lg text-gray-600 mb-12">Secure blockchain-verified identity for seamless travel verification</p>
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="px-8 py-3 bg-primary-600 text-white rounded-full text-lg hover:bg-primary-700 transition-colors"
-            >
-              Get Started
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={() => navigate('/login')}
+                className="px-8 py-3 text-primary-600 border border-primary-600 rounded-full text-lg hover:bg-primary-50 transition-colors"
+              >
+                Login to Dashboard
+              </button>
+              <button
+                onClick={() => navigate('/dashboard')}
+                className="px-8 py-3 bg-primary-600 text-white rounded-full text-lg hover:bg-primary-700 transition-colors"
+              >
+                Get Started
+              </button>
+            </div>
           </div>
         </div>
       </section>

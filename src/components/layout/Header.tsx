@@ -1,12 +1,19 @@
 import React from 'react';
-import { Bell, User, Settings } from 'lucide-react';
+import { Bell, User, Settings, LogOut } from 'lucide-react';
 import { Badge } from '../ui/Badge';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface HeaderProps {
   activeAlerts: number;
 }
 
 export const Header: React.FC<HeaderProps> = ({ activeAlerts }) => {
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4">
       <div className="flex items-center justify-between">
@@ -34,10 +41,20 @@ export const Header: React.FC<HeaderProps> = ({ activeAlerts }) => {
             )}
           </div>
           
-          <div className="flex items-center space-x-2">
-            <User className="h-6 w-6 text-gray-600" />
-            <span className="text-sm font-medium text-gray-700">Admin User</span>
+          <div className="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg p-2">
+            <User className="h-5 w-5 text-gray-600" />
+            <span className="text-sm font-medium text-gray-700">
+              {user ? `${user.firstName} ${user.lastName}` : 'Guest User'}
+            </span>
           </div>
+          
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 text-gray-600 hover:text-red-600 cursor-pointer hover:bg-gray-100 rounded-lg p-2"
+            title="Logout"
+          >
+            <LogOut className="h-5 w-5" />
+          </button>
           
           <Settings className="h-6 w-6 text-gray-600 cursor-pointer hover:text-gray-900" />
         </div>

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { MapContainer, TileLayer, CircleMarker, Popup, Polygon } from 'react-leaflet';
 import { Tourist, SafetyZone } from '../../types';
 import { Badge } from '../ui/Badge';
+import { mockAnalyticsData, mockSafetyZones } from '../../data/mockData';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -15,11 +16,37 @@ L.Icon.Default.mergeOptions({
 });
 
 interface HeatmapProps {
-  tourists: Tourist[];
-  safetyZones: SafetyZone[];
+  tourists?: Tourist[]; // Made optional since we're using mock data
+  safetyZones?: SafetyZone[]; // Made optional since we're using mock data
 }
 
-export const Heatmap: React.FC<HeatmapProps> = ({ tourists, safetyZones }) => {
+export const Heatmap: React.FC<HeatmapProps> = () => {
+  console.log('🗺 Heatmap: Using MOCK DATA only (as requested)');
+  
+  // Use mock data instead of API data
+  const tourists = mockAnalyticsData.heatmapTourists.map(t => ({
+    ...t,
+    name: `Tourist ${t.id}`,
+    nationality: 'Mock',
+    passportNumber: 'MOCK123',
+    phoneNumber: '+91-MOCK',
+    email: 'mock@example.com',
+    arrivalDate: '2024-01-15',
+    departureDate: '2024-01-25',
+    currentLocation: {
+      lat: t.lat,
+      lng: t.lng,
+      address: `${t.area}, India`
+    },
+    safetyScore: t.score,
+    status: t.status as 'safe' | 'warning' | 'danger' | 'missing',
+    lastSeen: '2024-01-20T10:30:00Z',
+    travelHistory: [],
+    emergencyContacts: [],
+    isTrackingEnabled: true
+  })) as Tourist[];
+  
+  const safetyZones = mockSafetyZones;
   const mapCenter: [number, number] = [20.5937, 78.9629]; // India center
   const mapZoom = 5;
 
@@ -135,7 +162,17 @@ export const Heatmap: React.FC<HeatmapProps> = ({ tourists, safetyZones }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Tourist Risk Heatmap & Density Analysis</CardTitle>
+        <CardTitle>Tourist Risk Heatmap & Density Analysis - Mock Data</CardTitle>
+        <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <h3 className="text-sm font-semibold text-green-900">Heatmap Dashboard - Mock Visualization</h3>
+          </div>
+          <p className="text-xs text-green-700 mt-1">
+            This heatmap uses mock tourist location data and safety zones for demonstration. 
+            Shows risk analysis, density patterns, and safety zone overlays.
+          </p>
+        </div>
         <div className="flex flex-wrap gap-2 mt-2">
           <Badge variant="info">🔵 Low Risk</Badge>
           <Badge variant="success">🟢 Safe</Badge>

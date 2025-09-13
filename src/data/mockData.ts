@@ -684,3 +684,217 @@ export const mockSafetyZones: SafetyZone[] = [
     riskLevel: 6
   }
 ];
+
+// Mock Analytics Data - Specifically for Analytics Section Only
+export const mockAnalyticsData = {
+  // Safety Score by Area - Bar Chart Data
+  areaStats: [
+    {
+      area: 'Delhi',
+      averageScore: 78,
+      touristCount: 45,
+      safeCount: 32,
+      warningCount: 8,
+      dangerCount: 4,
+      missingCount: 1
+    },
+    {
+      area: 'Mumbai',
+      averageScore: 65,
+      touristCount: 38,
+      safeCount: 22,
+      warningCount: 10,
+      dangerCount: 5,
+      missingCount: 1
+    },
+    {
+      area: 'Bangalore',
+      averageScore: 82,
+      touristCount: 28,
+      safeCount: 24,
+      warningCount: 3,
+      dangerCount: 1,
+      missingCount: 0
+    },
+    {
+      area: 'Chennai',
+      averageScore: 71,
+      touristCount: 22,
+      safeCount: 15,
+      warningCount: 4,
+      dangerCount: 2,
+      missingCount: 1
+    },
+    {
+      area: 'Kolkata',
+      averageScore: 69,
+      touristCount: 18,
+      safeCount: 12,
+      warningCount: 4,
+      dangerCount: 2,
+      missingCount: 0
+    },
+    {
+      area: 'Hyderabad',
+      averageScore: 75,
+      touristCount: 15,
+      safeCount: 11,
+      warningCount: 3,
+      dangerCount: 1,
+      missingCount: 0
+    },
+    {
+      area: 'Pune',
+      averageScore: 80,
+      touristCount: 12,
+      safeCount: 10,
+      warningCount: 2,
+      dangerCount: 0,
+      missingCount: 0
+    },
+    {
+      area: 'Jaipur',
+      averageScore: 73,
+      touristCount: 25,
+      safeCount: 18,
+      warningCount: 5,
+      dangerCount: 2,
+      missingCount: 0
+    },
+    {
+      area: 'Goa',
+      averageScore: 85,
+      touristCount: 35,
+      safeCount: 30,
+      warningCount: 4,
+      dangerCount: 1,
+      missingCount: 0
+    },
+    {
+      area: 'Agra',
+      averageScore: 74,
+      touristCount: 20,
+      safeCount: 15,
+      warningCount: 3,
+      dangerCount: 2,
+      missingCount: 0
+    },
+    {
+      area: 'Shimla',
+      averageScore: 88,
+      touristCount: 14,
+      safeCount: 13,
+      warningCount: 1,
+      dangerCount: 0,
+      missingCount: 0
+    },
+    {
+      area: 'Manali',
+      averageScore: 90,
+      touristCount: 16,
+      safeCount: 15,
+      warningCount: 1,
+      dangerCount: 0,
+      missingCount: 0
+    }
+  ],
+
+  // 24-Hour Safety Score Trends - Line Chart Data
+  hourlyTrends: [
+    { time: '00:00', score: 72, activeUsers: 15, alerts: 2 },
+    { time: '02:00', score: 71, activeUsers: 12, alerts: 1 },
+    { time: '04:00', score: 70, activeUsers: 8, alerts: 1 },
+    { time: '06:00', score: 75, activeUsers: 25, alerts: 3 },
+    { time: '08:00', score: 78, activeUsers: 45, alerts: 4 },
+    { time: '10:00', score: 82, activeUsers: 68, alerts: 5 },
+    { time: '12:00', score: 85, activeUsers: 82, alerts: 3 },
+    { time: '14:00', score: 83, activeUsers: 75, alerts: 4 },
+    { time: '16:00', score: 81, activeUsers: 70, alerts: 6 },
+    { time: '18:00', score: 79, activeUsers: 62, alerts: 7 },
+    { time: '20:00', score: 77, activeUsers: 48, alerts: 5 },
+    { time: '22:00', score: 74, activeUsers: 32, alerts: 4 }
+  ],
+
+  // Weekly Safety Score Trends
+  weeklyTrends: [
+    { day: 'Monday', score: 76, incidents: 12, tourists: 234 },
+    { day: 'Tuesday', score: 78, incidents: 10, tourists: 267 },
+    { day: 'Wednesday', score: 82, incidents: 8, tourists: 298 },
+    { day: 'Thursday', score: 80, incidents: 9, tourists: 285 },
+    { day: 'Friday', score: 75, incidents: 15, tourists: 325 },
+    { day: 'Saturday', score: 73, incidents: 18, tourists: 410 },
+    { day: 'Sunday', score: 71, incidents: 22, tourists: 456 }
+  ],
+
+  // Risk Distribution Data - Pie Chart
+  riskDistribution: [
+    { name: 'Safe', value: 182, percentage: 61.3, color: '#22c55e' },
+    { name: 'Warning', value: 68, percentage: 22.9, color: '#f59e0b' },
+    { name: 'Danger', value: 38, percentage: 12.8, color: '#ef4444' },
+    { name: 'Missing', value: 9, percentage: 3.0, color: '#6b7280' }
+  ],
+
+  // Top Risk Locations
+  topRiskLocations: [
+    { location: 'Mumbai Dharavi', riskScore: 85, incidents: 15, tourists: 12 },
+    { location: 'Delhi Old City', riskScore: 78, incidents: 12, tourists: 18 },
+    { location: 'Kolkata Slum Areas', riskScore: 72, incidents: 9, tourists: 8 },
+    { location: 'Chennai Marina Beach', riskScore: 68, incidents: 7, tourists: 25 },
+    { location: 'Bangalore Traffic Zones', riskScore: 65, incidents: 6, tourists: 15 }
+  ],
+
+  // Safety Score Distribution Histogram
+  scoreDistribution: [
+    { scoreRange: '0-20', count: 8, percentage: 2.7 },
+    { scoreRange: '21-40', count: 15, percentage: 5.1 },
+    { scoreRange: '41-60', count: 35, percentage: 11.8 },
+    { scoreRange: '61-80', count: 112, percentage: 37.7 },
+    { scoreRange: '81-100', count: 127, percentage: 42.7 }
+  ],
+
+  // Response Time Analytics
+  responseTimeData: [
+    { alertType: 'Panic Button', avgResponseTime: 2.3, count: 45 },
+    { alertType: 'Geofence Violation', avgResponseTime: 5.7, count: 28 },
+    { alertType: 'Missing Person', avgResponseTime: 8.2, count: 12 },
+    { alertType: 'Medical Emergency', avgResponseTime: 1.8, count: 18 },
+    { alertType: 'Suspicious Activity', avgResponseTime: 4.1, count: 22 }
+  ],
+
+  // Tourist Heatmap Data (for Analytics Heatmap)
+  heatmapTourists: [
+    // Delhi cluster
+    { id: 'heat-1', lat: 28.6139, lng: 77.2090, score: 85, status: 'safe', area: 'Delhi' },
+    { id: 'heat-2', lat: 28.6289, lng: 77.2065, score: 78, status: 'safe', area: 'Delhi' },
+    { id: 'heat-3', lat: 28.6169, lng: 77.2295, score: 65, status: 'warning', area: 'Delhi' },
+    { id: 'heat-4', lat: 28.5985, lng: 77.2295, score: 72, status: 'warning', area: 'Delhi' },
+    
+    // Mumbai cluster
+    { id: 'heat-5', lat: 19.0760, lng: 72.8777, score: 68, status: 'warning', area: 'Mumbai' },
+    { id: 'heat-6', lat: 19.0896, lng: 72.8656, score: 45, status: 'danger', area: 'Mumbai' },
+    { id: 'heat-7', lat: 19.0625, lng: 72.8972, score: 75, status: 'safe', area: 'Mumbai' },
+    
+    // Bangalore cluster
+    { id: 'heat-8', lat: 12.9716, lng: 77.5946, score: 82, status: 'safe', area: 'Bangalore' },
+    { id: 'heat-9', lat: 12.9853, lng: 77.6103, score: 88, status: 'safe', area: 'Bangalore' },
+    { id: 'heat-10', lat: 12.9279, lng: 77.6271, score: 79, status: 'safe', area: 'Bangalore' },
+    
+    // Goa cluster
+    { id: 'heat-11', lat: 15.4989, lng: 73.8278, score: 92, status: 'safe', area: 'Goa' },
+    { id: 'heat-12', lat: 15.5057, lng: 73.9964, score: 89, status: 'safe', area: 'Goa' },
+    { id: 'heat-13', lat: 15.2832, lng: 74.1240, score: 85, status: 'safe', area: 'Goa' },
+    
+    // Jaipur cluster
+    { id: 'heat-14', lat: 26.9018, lng: 75.8236, score: 76, status: 'warning', area: 'Jaipur' },
+    { id: 'heat-15', lat: 26.9124, lng: 75.7873, score: 58, status: 'warning', area: 'Jaipur' },
+    
+    // Agra cluster
+    { id: 'heat-16', lat: 27.1751, lng: 78.0421, score: 82, status: 'safe', area: 'Agra' },
+    { id: 'heat-17', lat: 27.1767, lng: 78.0081, score: 74, status: 'safe', area: 'Agra' },
+    
+    // High-risk scattered locations
+    { id: 'heat-18', lat: 23.2156, lng: 69.6669, score: 35, status: 'danger', area: 'Gujarat' },
+    { id: 'heat-19', lat: 32.2396, lng: 77.1887, score: 92, status: 'safe', area: 'Himachal' },
+    { id: 'heat-20', lat: 25.3176, lng: 82.9739, score: 42, status: 'danger', area: 'UP' }
+  ]
+};

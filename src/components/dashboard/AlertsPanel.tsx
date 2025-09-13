@@ -2,23 +2,100 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
+import { AcknowledgeModal } from '../ui/AcknowledgeModal';
 import { Alert } from '../../types';
 import { formatDate } from '../../utils';
-import { AlertTriangle, MapPin, Clock, User, CheckCircle, Eye } from 'lucide-react';
+import { AlertTriangle, MapPin, Clock, User, CheckCircle, Eye, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import apiService from '../../services/api';
 
 interface AlertsPanelProps {
   alerts: Alert[];
   onAlertSelect: (alert: Alert) => void;
+  onAlertUpdate?: () => void; // Callback to refresh alerts after acknowledgment
 }
 
-export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts }) => {
+export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onAlertUpdate }) => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState<'all' | 'active' | 'investigating' | 'resolved'>('all');
   const [severityFilter, setSeverityFilter] = useState<'all' | 'low' | 'medium' | 'high' | 'critical'>('all');
+  
+  // Acknowledge modal state
+  const [acknowledgeModal, setAcknowledgeModal] = useState<{
+    isOpen: boolean;
+    alert: Alert | null;
+  }>({ isOpen: false, alert: null });
+  const [isAcknowledging, setIsAcknowledging] = useState(false);
 
   const handleAlertClick = (alert: Alert) => {
     navigate(`/alert/${alert.id}`);
+  };
+
+  const handleAcknowledgeClick = (e: React.MouseEvent, alert: Alert) => {
+    console.log('🖘 Acknowledge button clicked for alert:', alert);
+    e.stopPropagation(); // Prevent navigation to alert details
+    setAcknowledgeModal({ isOpen: true, alert });
+    console.log('📱 Modal state set to open');
+  };
+
+  const handleAcknowledgeConfirm = async (comment: string, action: 'acknowledge' | 'resolve' | 'false_alarm' = 'acknowledge') => {
+    console.log('🚀 handleAcknowledgeConfirm called with:', { comment, action, alert: acknowledgeModal.alert });
+    
+    if (!acknowledgeModal.alert) {
+      console.error('❌ No alert in modal state');
+      return;
+    }
+
+    console.log('⏳ Setting acknowledging state to true');
+    setIsAcknowledging(true);
+    
+    try {
+      console.log(`🚨 About to ${action} alert:`, {
+        alertId: acknowledgeModal.alert.id,
+        alertType: acknowledgeModal.alert.type,
+        comment,
+        action
+      });
+      
+      if (acknowledgeModal.alert.type === 'panic') {
+        // This is an SOS alert
+        switch (action) {
+          case 'acknowledge':
+            await apiService.acknowledgeSosRequest(acknowledgeModal.alert.id, comment);
+            break;
+          case 'resolve':
+            await apiService.resolveSosRequest(acknowledgeModal.alert.id, comment);
+            break;
+          case 'false_alarm':
+            await apiService.markSosAsFalseAlarm(acknowledgeModal.alert.id, comment);
+            break;
+        }
+      } else if (acknowledgeModal.alert.type === 'anomaly') {
+        // This is a community report
+        const reportStatus = action === 'resolve' ? 'RESOLVED' : 'UNDER_REVIEW';
+        await apiService.updateCommunityReportStatus(acknowledgeModal.alert.id, reportStatus, comment);
+      }
+      
+      console.log(`✅ Alert ${action}d successfully`);
+      
+      // Close modal
+      setAcknowledgeModal({ isOpen: false, alert: null });
+      
+      // Refresh alerts if callback provided
+      if (onAlertUpdate) {
+        onAlertUpdate();
+      }
+      
+    } catch (error) {
+      console.error(`❌ Failed to ${action} alert:`, error);
+      alert(`Failed to ${action} alert. Please try again.`);
+    } finally {
+      setIsAcknowledging(false);
+    }
+  };
+
+  const handleAcknowledgeCancel = () => {
+    setAcknowledgeModal({ isOpen: false, alert: null });
   };
 
   const filteredAlerts = alerts.filter(alert => {
@@ -26,6 +103,14 @@ export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts }) => {
     const severityMatch = severityFilter === 'all' || alert.severity === severityFilter;
     return statusMatch && severityMatch;
   });
+  
+  // Debug: Log filtered alerts
+  console.log('🚨 AlertsPanel: Total alerts:', alerts.length);
+  console.log('🚨 AlertsPanel: Filtered alerts:', filteredAlerts.length);
+  console.log('🚨 AlertsPanel: Active alerts:', filteredAlerts.filter(a => a.status === 'active').length);
+  if (filteredAlerts.length > 0) {
+    console.log('🚨 AlertsPanel: First alert sample:', filteredAlerts[0]);
+  }
 
   const getAlertIcon = (type: string) => {
     switch (type) {
@@ -142,7 +227,19 @@ export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts }) => {
                   )}
                 </div>
                 
-                <div className="mt-3 pt-3 border-t border-gray-200 flex justify-end">
+                <div className="mt-3 pt-3 border-t border-gray-200 flex items-center justify-between">
+                  <div className="flex space-x-2">
+                    {alert.status === 'active' && (
+                      <Button 
+                        size="sm" 
+                        variant="warning"
+                        onClick={(e) => handleAcknowledgeClick(e, alert)}
+                      >
+                        <MessageSquare className="h-4 w-4 mr-2" />
+                        Acknowledge
+                      </Button>
+                    )}
+                  </div>
                   <Button size="sm" variant="secondary">
                     <Eye className="h-4 w-4 mr-2" />
                     View Details
@@ -153,6 +250,16 @@ export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts }) => {
           )}
         </div>
       </CardContent>
+      
+      {/* Acknowledge Modal */}
+      <AcknowledgeModal
+        isOpen={acknowledgeModal.isOpen}
+        alertType={acknowledgeModal.alert?.type === 'panic' ? 'SOS' : 'Community Report'}
+        alertTitle={acknowledgeModal.alert ? `${acknowledgeModal.alert.touristName} - ${acknowledgeModal.alert.type} Alert` : ''}
+        onConfirm={handleAcknowledgeConfirm}
+        onCancel={handleAcknowledgeCancel}
+        isLoading={isAcknowledging}
+      />
     </Card>
   );
 };

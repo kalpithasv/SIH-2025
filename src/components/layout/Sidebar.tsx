@@ -7,7 +7,8 @@ import {
   BarChart3, 
   Settings,
   Compass,
-  FileText
+  FileText,
+  Navigation
 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '../../utils';
@@ -20,6 +21,7 @@ interface SidebarProps {
 const navigationItems = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
   { id: 'tourists', label: 'Tourists', icon: Users },
+  { id: 'trips', label: 'Active Trips', icon: Navigation },
   { id: 'alerts', label: 'Alerts', icon: AlertTriangle },
   { id: 'heatmap', label: 'Heatmap', icon: MapPin },
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
@@ -41,6 +43,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
         break;
       case 'tourists':
         navigate('/dashboard/tourists');
+        break;
+      case 'trips':
+        navigate('/dashboard/trips');
         break;
       case 'alerts':
         navigate('/dashboard/alerts');
@@ -77,6 +82,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
               (item.id === 'overview' && location.pathname === '/dashboard') ||
               (item.id === item.id && location.pathname === `/dashboard/${item.id}`) ||
               (item.id === 'tourists' && location.pathname.startsWith('/dashboard/tourist/')) ||
+              (item.id === 'trips' && location.pathname.startsWith('/dashboard/trip/')) ||
               (item.id === 'alerts' && location.pathname.startsWith('/dashboard/alert/'));
             
             return (
