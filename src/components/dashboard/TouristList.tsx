@@ -55,13 +55,13 @@ export const TouristList: React.FC<TouristListProps> = ({ tourists }) => {
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0">
           <CardTitle>Tourist List</CardTitle>
-          <div className="flex space-x-2">
+          <div className="flex flex-col xs:flex-row gap-2">
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value as any)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+              className="px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[40px] flex-1 xs:flex-none"
             >
               <option value="all">All Status</option>
               <option value="safe">Safe</option>
@@ -72,7 +72,7 @@ export const TouristList: React.FC<TouristListProps> = ({ tourists }) => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+              className="px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[40px] flex-1 xs:flex-none"
             >
               <option value="safetyScore">Safety Score</option>
               <option value="name">Name</option>
@@ -83,48 +83,48 @@ export const TouristList: React.FC<TouristListProps> = ({ tourists }) => {
       </CardHeader>
       
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {sortedTourists.map((tourist) => (
             <div
               key={tourist.id}
-              className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+              className="border border-gray-200 rounded-lg p-3 sm:p-4 hover:bg-gray-50 transition-colors duration-200 cursor-pointer touch-manipulation"
               onClick={() => handleTouristClick(tourist)}
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-3">
-                  <span className="text-2xl">{getStatusIcon(tourist.status)}</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{tourist.name}</h3>
-                    <p className="text-sm text-gray-600">{tourist.nationality} • {tourist.passportNumber}</p>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0 mb-3">
+                <div className="flex items-center space-x-3 min-w-0 flex-1">
+                  <span className="text-xl sm:text-2xl flex-shrink-0">{getStatusIcon(tourist.status)}</span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-semibold text-gray-900 truncate">{tourist.name}</h3>
+                    <p className="text-xs sm:text-sm text-gray-600 truncate">{tourist.nationality} • {tourist.passportNumber}</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-between sm:justify-end space-x-3 sm:space-x-2 flex-shrink-0">
                   <Badge variant={tourist.status === 'safe' ? 'success' : 
                                  tourist.status === 'warning' ? 'warning' : 
                                  tourist.status === 'danger' ? 'danger' : 'default'}>
                     {tourist.status.toUpperCase()}
                   </Badge>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">Safety Score</p>
-                    <p className="text-lg font-bold text-gray-900">{tourist.safetyScore}</p>
+                    <p className="text-xs sm:text-sm font-medium text-gray-900">Safety Score</p>
+                    <p className="text-base sm:text-lg font-bold text-gray-900">{tourist.safetyScore}</p>
                   </div>
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div className="flex items-center space-x-2">
-                  <MapPin className="h-4 w-4 text-gray-500" />
-                  <span className="text-gray-600">{tourist.currentLocation.address}</span>
+              <div className="space-y-2 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-3 sm:gap-4 text-xs sm:text-sm">
+                <div className="flex items-center space-x-2 min-w-0">
+                  <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500 flex-shrink-0" />
+                  <span className="text-gray-600 truncate">{tourist.currentLocation.address}</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Phone className="h-4 w-4 text-gray-500" />
+                <div className="flex items-center space-x-2 min-w-0">
+                  <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500 flex-shrink-0" />
                   <span className="text-gray-600">{tourist.phoneNumber}</span>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 min-w-0">
                   {tourist.isTrackingEnabled ? (
-                    <Eye className="h-4 w-4 text-success-500" />
+                    <Eye className="h-3 w-3 sm:h-4 sm:w-4 text-success-500 flex-shrink-0" />
                   ) : (
-                    <EyeOff className="h-4 w-4 text-gray-400" />
+                    <EyeOff className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400 flex-shrink-0" />
                   )}
                   <span className="text-gray-600">
                     Tracking {tourist.isTrackingEnabled ? 'Enabled' : 'Disabled'}
@@ -133,7 +133,7 @@ export const TouristList: React.FC<TouristListProps> = ({ tourists }) => {
               </div>
               
               <div className="mt-3 pt-3 border-t border-gray-200">
-                <div className="flex items-center justify-between text-sm text-gray-600">
+                <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between space-y-1 xs:space-y-0 text-xs sm:text-sm text-gray-600">
                   <span>Last seen: {getTimeAgo(tourist.lastSeen)}</span>
                   <span>Arrival: {formatDate(tourist.arrivalDate)}</span>
                 </div>

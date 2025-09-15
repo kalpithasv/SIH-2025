@@ -5,20 +5,42 @@
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
+    /* Prevent zoom on iOS when inputs are focused */
+    -webkit-text-size-adjust: 100%;
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    /* Better font rendering on mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Better touch targets on mobile */
+  button, [role="button"], input, select, textarea {
+    touch-action: manipulation;
+  }
+  
+  /* Disable tap highlight on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6;
   }
   
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 min-h-[44px] flex items-center justify-center;
   }
   
   .btn-secondary {
-    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-lg transition-colors duration-200 min-h-[44px] flex items-center justify-center;
   }
   
   .status-safe {

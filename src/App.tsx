@@ -23,6 +23,7 @@ import { adaptTripToTourist, adaptUserToTourist, adaptSosToAlert, adaptCommunity
 const DashboardLayout = () => {
   const { isAuthenticated, isLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [trips, setTrips] = useState<Trip[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [sosRequests, setSosRequests] = useState<SosRequest[]>([]);
@@ -128,7 +129,7 @@ const DashboardLayout = () => {
 
   if (isLoading || isDataLoading) {
     return (
-      <div className="flex h-screen bg-gray-100 items-center justify-center">
+      <div className="flex min-h-screen bg-gray-100 items-center justify-center p-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
@@ -142,11 +143,19 @@ const DashboardLayout = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Header activeAlerts={alerts.filter(alert => alert.status === 'active').length} />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+    <div className="flex h-screen bg-gray-100 relative">
+      <Sidebar 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab}
+        isMobileMenuOpen={isMobileMenuOpen}
+        onMobileMenuClose={() => setIsMobileMenuOpen(false)}
+      />
+      <div className="flex-1 flex flex-col overflow-hidden w-full lg:w-auto">
+        <Header 
+          activeAlerts={alerts.filter(alert => alert.status === 'active').length}
+          onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        />
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 sm:p-6">
           <Routes>
             <Route index element={<HomePage />} />
             <Route path="tourists" element={
@@ -203,7 +212,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   
   if (isLoading) {
     return (
-      <div className="flex h-screen bg-gray-100 items-center justify-center">
+      <div className="flex min-h-screen bg-gray-100 items-center justify-center p-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>

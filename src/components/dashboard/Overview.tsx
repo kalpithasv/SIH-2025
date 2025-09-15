@@ -31,9 +31,9 @@ export const Overview: React.FC<OverviewProps> = ({ stats, onDepartmentSelect })
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatsCard
           title="Total Tourists"
           value={stats.totalTourists}
@@ -69,7 +69,7 @@ export const Overview: React.FC<OverviewProps> = ({ stats, onDepartmentSelect })
       </div>
 
       {/* Department Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <DepartmentCard
           department="tourism"
           stats={tourismStats}
@@ -83,79 +83,79 @@ export const Overview: React.FC<OverviewProps> = ({ stats, onDepartmentSelect })
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Safe Tourists</p>
-              <p className="text-3xl font-bold text-success-600">{stats.safeTourists}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-success-600">{stats.safeTourists}</p>
             </div>
-            <div className="p-3 rounded-full bg-success-100">
-              <CheckCircle className="h-6 w-6 text-success-600" />
+            <div className="p-2 sm:p-3 rounded-full bg-success-100">
+              <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-success-600" />
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Warning Status</p>
-              <p className="text-3xl font-bold text-warning-600">{stats.warningTourists}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-warning-600">{stats.warningTourists}</p>
             </div>
-            <div className="p-3 rounded-full bg-warning-100">
-              <AlertTriangle className="h-6 w-6 text-warning-600" />
+            <div className="p-2 sm:p-3 rounded-full bg-warning-100">
+              <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-warning-600" />
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 sm:col-span-2 md:col-span-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Missing Tourists</p>
-              <p className="text-3xl font-bold text-danger-600">{stats.missingTourists}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-danger-600">{stats.missingTourists}</p>
             </div>
-            <div className="p-3 rounded-full bg-danger-100">
-              <XCircle className="h-6 w-6 text-danger-600" />
+            <div className="p-2 sm:p-3 rounded-full bg-danger-100">
+              <XCircle className="h-5 w-5 sm:h-6 sm:w-6 text-danger-600" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
-        <div className="space-y-4">
-          <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-            <div className="p-2 rounded-full bg-success-100">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Recent Activity</h3>
+        <div className="space-y-3 sm:space-y-4">
+          <div className="flex items-start sm:items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+            <div className="p-2 rounded-full bg-success-100 flex-shrink-0">
               <CheckCircle className="h-4 w-4 text-success-600" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900">Sarah Johnson case resolved</p>
-              <p className="text-xs text-gray-600">Missing person found safe in Jaipur</p>
+              <p className="text-xs text-gray-600 mt-1">Missing person found safe in Jaipur</p>
             </div>
-            <span className="text-xs text-gray-500">2 hours ago</span>
+            <span className="text-xs text-gray-500 whitespace-nowrap">2 hours ago</span>
           </div>
           
-          <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-            <div className="p-2 rounded-full bg-warning-100">
+          <div className="flex items-start sm:items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+            <div className="p-2 rounded-full bg-warning-100 flex-shrink-0">
               <AlertTriangle className="h-4 w-4 text-warning-600" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900">New geofence alert</p>
-              <p className="text-xs text-gray-600">Maria Garcia entered restricted zone</p>
+              <p className="text-xs text-gray-600 mt-1">Maria Garcia entered restricted zone</p>
             </div>
-            <span className="text-xs text-gray-500">4 hours ago</span>
+            <span className="text-xs text-gray-500 whitespace-nowrap">4 hours ago</span>
           </div>
           
-          <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-            <div className="p-2 rounded-full bg-primary-100">
+          <div className="flex items-start sm:items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+            <div className="p-2 rounded-full bg-primary-100 flex-shrink-0">
               <Users className="h-4 w-4 text-primary-600" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900">New tourist registered</p>
-              <p className="text-xs text-gray-600">John Smith from USA</p>
+              <p className="text-xs text-gray-600 mt-1">John Smith from USA</p>
             </div>
-            <span className="text-xs text-gray-500">6 hours ago</span>
+            <span className="text-xs text-gray-500 whitespace-nowrap">6 hours ago</span>
           </div>
         </div>
       </div>

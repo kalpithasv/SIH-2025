@@ -143,13 +143,13 @@ export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onAlertUpdate 
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0">
           <CardTitle>Active Alerts & Incidents</CardTitle>
-          <div className="flex space-x-2">
+          <div className="flex flex-col xs:flex-row gap-2">
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value as any)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+              className="px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[40px] flex-1 xs:flex-none"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -159,7 +159,7 @@ export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onAlertUpdate 
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value as any)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+              className="px-3 py-2 border border-gray-300 rounded-md text-sm min-h-[40px] flex-1 xs:flex-none"
             >
               <option value="all">All Severity</option>
               <option value="low">Low</option>
@@ -172,28 +172,28 @@ export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onAlertUpdate 
       </CardHeader>
       
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {filteredAlerts.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              <AlertTriangle className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-              <p>No alerts found matching the current filters.</p>
+            <div className="text-center py-6 sm:py-8 text-gray-500">
+              <AlertTriangle className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-3 sm:mb-4 text-gray-300" />
+              <p className="text-sm sm:text-base">No alerts found matching the current filters.</p>
             </div>
           ) : (
             filteredAlerts.map((alert) => (
               <div
                 key={alert.id}
-                className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+                className="border border-gray-200 rounded-lg p-3 sm:p-4 hover:bg-gray-50 transition-colors duration-200 cursor-pointer touch-manipulation"
                 onClick={() => handleAlertClick(alert)}
               >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">{getAlertIcon(alert.type)}</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">{alert.touristName}</h3>
-                      <p className="text-sm text-gray-600 capitalize">{alert.type} Alert</p>
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between space-y-3 sm:space-y-0 mb-3">
+                  <div className="flex items-center space-x-3 min-w-0 flex-1">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">{getAlertIcon(alert.type)}</span>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-semibold text-gray-900 truncate">{alert.touristName}</h3>
+                      <p className="text-xs sm:text-sm text-gray-600 capitalize">{alert.type} Alert</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center justify-between sm:justify-end space-x-3 sm:space-x-2 flex-shrink-0">
                     <Badge variant={
                       alert.severity === 'critical' ? 'danger' :
                       alert.severity === 'high' ? 'danger' :
@@ -203,46 +203,47 @@ export const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onAlertUpdate 
                     </Badge>
                     <div className="flex items-center space-x-1">
                       {getStatusIcon(alert.status)}
-                      <span className="text-sm text-gray-600 capitalize">{alert.status}</span>
+                      <span className="text-xs sm:text-sm text-gray-600 capitalize">{alert.status}</span>
                     </div>
                   </div>
                 </div>
                 
-                <p className="text-sm text-gray-700 mb-3">{alert.message}</p>
+                <p className="text-xs sm:text-sm text-gray-700 mb-3 overflow-hidden" style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical'}}>{alert.message}</p>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="h-4 w-4 text-gray-500" />
-                    <span className="text-gray-600">{alert.location.address}</span>
+                <div className="space-y-2 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-2 sm:gap-4 text-xs sm:text-sm">
+                  <div className="flex items-center space-x-2 min-w-0">
+                    <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500 flex-shrink-0" />
+                    <span className="text-gray-600 truncate">{alert.location.address}</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Clock className="h-4 w-4 text-gray-500" />
+                  <div className="flex items-center space-x-2 min-w-0">
+                    <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500 flex-shrink-0" />
                     <span className="text-gray-600">{formatDate(alert.timestamp)}</span>
                   </div>
                   {alert.assignedTo && (
-                    <div className="flex items-center space-x-2 md:col-span-2">
-                      <User className="h-4 w-4 text-gray-500" />
-                      <span className="text-gray-600">Assigned to: {alert.assignedTo}</span>
+                    <div className="flex items-center space-x-2 md:col-span-2 min-w-0">
+                      <User className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500 flex-shrink-0" />
+                      <span className="text-gray-600 truncate">Assigned to: {alert.assignedTo}</span>
                     </div>
                   )}
                 </div>
                 
-                <div className="mt-3 pt-3 border-t border-gray-200 flex items-center justify-between">
+                <div className="mt-3 pt-3 border-t border-gray-200 flex flex-col xs:flex-row xs:items-center justify-between space-y-2 xs:space-y-0">
                   <div className="flex space-x-2">
                     {alert.status === 'active' && (
                       <Button 
                         size="sm" 
                         variant="warning"
                         onClick={(e) => handleAcknowledgeClick(e, alert)}
+                        className="flex-1 xs:flex-none"
                       >
-                        <MessageSquare className="h-4 w-4 mr-2" />
-                        Acknowledge
+                        <MessageSquare className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                        <span className="text-xs sm:text-sm">Acknowledge</span>
                       </Button>
                     )}
                   </div>
-                  <Button size="sm" variant="secondary">
-                    <Eye className="h-4 w-4 mr-2" />
-                    View Details
+                  <Button size="sm" variant="secondary" className="flex-1 xs:flex-none">
+                    <Eye className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                    <span className="text-xs sm:text-sm">View Details</span>
                   </Button>
                 </div>
               </div>

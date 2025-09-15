@@ -36,18 +36,18 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   return (
     <Card>
       <CardContent>
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex items-start sm:items-center justify-between">
+          <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-600">{title}</p>
-            <p className="text-2xl font-bold text-gray-900">{value}</p>
+            <p className="text-xl sm:text-2xl font-bold text-gray-900 mt-1">{value}</p>
             {change && (
-              <p className={`text-sm ${changeColorClasses[changeType]}`}>
+              <p className={`text-xs sm:text-sm mt-1 ${changeColorClasses[changeType]}`}>
                 {change}
               </p>
             )}
           </div>
-          <div className={`p-3 rounded-full ${colorClasses[color]}`}>
-            <Icon className="h-6 w-6" />
+          <div className={`p-2 sm:p-3 rounded-full flex-shrink-0 ${colorClasses[color]}`}>
+            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
         </div>
       </CardContent>
