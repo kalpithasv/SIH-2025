@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   LayoutDashboard, 
   Users, 
@@ -35,6 +35,20 @@ const navigationItems = [
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, isMobileMenuOpen, onMobileMenuClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const handleNavigation = (itemId: string) => {
     onTabChange(itemId);
@@ -79,14 +93,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, isMobi
       {/* Mobile Backdrop */}
       {isMobileMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" 
+          className="fixed inset-0 bg-black bg-opacity-50 z-9998 lg:hidden" 
           onClick={onMobileMenuClose}
         />
       )}
       
       {/* Sidebar */}
       <aside className={cn(
-        "fixed lg:static inset-y-0 left-0 z-50 w-64 bg-gray-50 border-r border-gray-200 h-full transform transition-transform duration-300 ease-in-out lg:transform-none",
+        "fixed lg:static inset-y-0 left-0 z-9999 w-64 bg-gray-50 border-r border-gray-200 h-full transform transition-transform duration-300 ease-in-out lg:transform-none shadow-xl lg:shadow-none isolate",
         isMobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
         <div className="p-4 sm:p-6">
